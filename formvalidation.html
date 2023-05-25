@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        font-weight: 500;
+    }
+    section{
+        
+        background-image: url("../4.jpg");
+        width: 100%;
+    }
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        
+    }
+    .row{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .box{
+        background-color: rgb(12, 22, 45);
+        border: 1px solid rgb(32, 38, 55);
+        border-radius: 6px;
+        padding: 50px 200px;
+        color: rgb(129, 147, 178);
+    }
+    input{
+        width: 200px;
+        border: 1px solid rgb(32, 38, 55);   
+        background-color: transparent;
+        padding: 10px 20px 10px 5px;
+        border-radius: 6px;
+        color: white;
+        outline: none;
+    }
+    input:focus{
+        border: 1px solid #0969da;
+    }
+    .text{
+        padding: 20px 0 5px;
+    }
+    .btn{
+        color: rgb(98, 117, 151);
+        background: none;
+        border-color: rgb(98, 117, 151);
+        margin: 0 auto;
+        margin-top: 20px;
+        font-weight: 600;
+    }
+</style>
+<body>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="box">
+                    <table border="0">
+                        <tr>
+                            <td class="text">Name : </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="name" onkeyup="nameup()"></td>
+                        </tr>
+                        <tr>
+                            <td class="text">Email : </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="email"></td>
+                        </tr>
+                        <tr>
+                            <td class="text">Password : </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="password"></td>
+                        </tr>
+                        <tr>
+                            <td class="text">Confirm Password : </td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="cp"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="btn" type="button" value="Submit" onclick="save()"></td>
+                        </tr>
+                        <h1 id="g"></h1>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<!-- Include SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+<!-- Include SweetAlert JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+    const save = () => {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var cp = document.getElementById('cp').value;
+    
+        var mailFormat =  /\S+@\S+\.\S+/;
+
+        try{
+            if(!name){
+                throw "Please enter Name";
+                return false;
+            }
+
+            if(!email){
+                throw "Please enter Email";
+               
+            }else if(!email.match(mailFormat)){
+                throw "Please enter a valid Email";
+    
+            }
+
+            if(!password){
+                throw "Please enter Password";
+            }
+
+            if(password.length > 8 && password.length < 16){
+                
+            }else{
+                throw "Password must be greater than 8 letters and less than 16 letters";
+            }
+
+            if(!cp){
+                throw "Please enter Confirm Password";
+            } 
+
+            if(cp != password){
+                throw "Password must be same.";
+            }
+
+            var name = document.getElementById('name').value = "";
+            var email = document.getElementById('email').value = "";
+            var password = document.getElementById('password').value = "";
+            var cp = document.getElementById('cp').value = "";
+
+            throw "Form submitted successfully.";
+        }catch(error){
+            Swal.fire({
+            title : error,
+            customClass: {
+            title: 'title'
+            }
+        });
+        }
+    }
+
+    function nameup () {
+        var name = document.getElementById('name');
+        name.value = name.value.toUpperCase();
+    }
+    
+</script>
+</html>
